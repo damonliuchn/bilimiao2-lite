@@ -15,10 +15,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import cn.a10miaomiao.bilimiao.compose.pages.download.DownloadListPage
+import cn.a10miaomiao.bilimiao.compose.pages.user.UserFavouritePage
 import cn.a10miaomiao.miao.binding.android.view.*
 import cn.a10miaomiao.miao.binding.miaoEffect
 import com.a10miaomiao.bilimiao.MainActivity
@@ -32,7 +34,9 @@ import com.a10miaomiao.bilimiao.comm.navigation.navigateToCompose
 import com.a10miaomiao.bilimiao.comm.navigation.openSearch
 import com.a10miaomiao.bilimiao.comm.recycler.RecyclerViewFragment
 import com.a10miaomiao.bilimiao.comm.store.UserStore
+import com.a10miaomiao.bilimiao.page.home.HomeFragment
 import com.a10miaomiao.bilimiao.page.user.HistoryFragment
+import com.a10miaomiao.bilimiao.page.user.favourite.UserFavouriteListFragment
 import com.a10miaomiao.bilimiao.store.WindowStore
 import com.a10miaomiao.bilimiao.widget.scaffold.getScaffoldView
 import com.a10miaomiao.bilimiao.widget.wrapInViewPager2Container
@@ -78,8 +82,10 @@ class MainFragment : Fragment(), DIAware, MyPage {
             },
             myMenuItem {
                 key = MenuKeys.download
-                title = "下载"
-                iconResource = R.drawable.ic_arrow_downward_gray_24dp
+//                title = "下载"
+//                iconResource = R.drawable.ic_arrow_downward_gray_24dp
+                title = "收藏"
+                iconResource = R.drawable.ic_outline_favorite_border_24
             },
             myMenuItem {
                 key = MenuKeys.setting
@@ -102,7 +108,15 @@ class MainFragment : Fragment(), DIAware, MyPage {
                 nav.navigate(HistoryFragment.actionId)
             }
             MenuKeys.download -> {
-                nav.navigateToCompose(DownloadListPage())
+                //nav.navigateToCompose(DownloadListPage())
+                val userInfo = viewModel.userStore.state.info
+                if (userInfo != null) {
+                    val args =
+                        UserFavouriteListFragment.createArguments(userInfo.mid.toString(), userInfo.name)
+                    nav.navigateToCompose(UserFavouritePage()) {
+                        id set userInfo.mid.toString()
+                    }
+                }
             }
             MenuKeys.search -> {
                 requireActivity().openSearch(view)
@@ -152,6 +166,7 @@ class MainFragment : Fragment(), DIAware, MyPage {
                             backKeyPressedTimes = now
                         } else {
                             requireActivity().finish()
+                            HomeFragment.SHOWED_FAVORITE = false
                         }
                     }
                 }

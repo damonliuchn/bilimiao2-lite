@@ -60,6 +60,6 @@ object SettingConstants {
     const val  PLAYER_BOTTOM_PROGRESS_BAR_SHOW_IN_PIP = 4
 
     // 倍速值集合
-    val PLAYER_SPEED_SETS = setOf("0.5", "1.0", "2.0")
+    val PLAYER_SPEED_SETS = setOf("0.5","0.75", "1.0", "1.25","1.5","2.0")
 
 }

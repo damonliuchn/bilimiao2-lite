@@ -14,7 +14,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.a10miaomiao.bilimiao"
+        applicationId = "com.a10miaomiao.bilimiao_lite"
         minSdk = 21
         targetSdk = 34
         versionCode = 102

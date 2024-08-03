@@ -1072,7 +1072,7 @@ class VideoInfoFragment : Fragment(), DIAware, MyPage {
             )
 
             val mAdapter = _miaoAdapter(
-                items = viewModel.relates,
+                items = null,
                 itemUi = relateItemUi,
             ) {
                 setOnItemClickListener(handleRelateItemClick)

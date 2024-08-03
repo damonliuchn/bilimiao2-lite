@@ -37,15 +37,15 @@ class MainViewModel(
             val list = mutableListOf<HomeNav>(
                 HomeNav.Home
             )
-            if (preferences[HomeRecommendShow] != false) {
-                list.add(HomeNav.Recommend)
-            }
-            if (preferences[HomePopularShow] != false) {
-                list.add(HomeNav.Popular)
-            }
-            if (userStore.isLogin()) {
-                list.add(HomeNav.Dynamic)
-            }
+//            if (preferences[HomeRecommendShow] != false) {
+//                list.add(HomeNav.Recommend)
+//            }
+//            if (preferences[HomePopularShow] != false) {
+//                list.add(HomeNav.Popular)
+//            }
+//            if (userStore.isLogin()) {
+//                list.add(HomeNav.Dynamic)
+//            }
             list.toList()
         }
     }.stateIn(

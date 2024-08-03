@@ -5,27 +5,19 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.PopupMenu
-import androidx.browser.customtabs.CustomTabsIntent
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.findNavController
+import com.a10miaomiao.bilimiao.MainActivity
 import com.a10miaomiao.bilimiao.R
-import com.a10miaomiao.bilimiao.comm.delegate.player.BasePlayerDelegate
-import com.a10miaomiao.bilimiao.comm.entity.player.PlayListFrom
-import com.a10miaomiao.bilimiao.comm.entity.player.PlayListItemInfo
-import com.a10miaomiao.bilimiao.comm.entity.video.VideoInfo
 import com.a10miaomiao.bilimiao.comm.store.PlayListStore
 import com.a10miaomiao.bilimiao.comm.store.PlayerStore
 import com.a10miaomiao.bilimiao.comm.utils.BiliUrlMatcher
 import com.a10miaomiao.bilimiao.page.download.DownloadVideoCreateFragment
 import com.a10miaomiao.bilimiao.page.download.DownloadVideoCreateParam
 import com.kongzue.dialogx.dialogs.PopTip
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class VideoMorePopupMenu(
     private val activity: Activity,
@@ -65,11 +57,18 @@ class VideoMorePopupMenu(
             add(Menu.FIRST, 2, 0, "复制AV号")
             add(Menu.FIRST, 3, 0, "复制BV号")
             add(Menu.FIRST, 4, 0, "下载视频")
+            add(Menu.FIRST, 99, 0, "发送到桌面")
         }
     }
 
     override fun onMenuItemClick(item: MenuItem?): Boolean {
         when (item?.itemId) {
+            99 -> {
+                val info = viewModel.info
+                if (info != null) {
+                    ShortcutUtil.addShortcut(activity, info.title, info.aid)
+                }
+            }
             // 用浏览器打开
             0 -> {
                 val id = viewModel.id

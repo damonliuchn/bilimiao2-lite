@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import cn.a10miaomiao.bilimiao.compose.pages.bangumi.BangumiDetailPage
+import com.a10miaomiao.bilimiao.Bilimiao
 import com.a10miaomiao.bilimiao.comm.MiaoBindingUi
 import com.a10miaomiao.bilimiao.comm.datastore.SettingConstants
 import com.a10miaomiao.bilimiao.comm.datastore.SettingPreferences
@@ -48,7 +49,7 @@ class VideoInfoViewModel(
     val ui: MiaoBindingUi by instance()
     val fragment: Fragment by instance()
     val basePlayerDelegate by instance<BasePlayerDelegate>()
-    val scaffoldApp by lazy { fragment.requireActivity().getScaffoldView() }
+    val scaffoldApp by lazy { Bilimiao.mainActivity.getScaffoldView() }
 
     //    val type by lazy { fragment.requireArguments().getString(MainNavArgs.type, "AV") }
     var id: String = ""
@@ -174,7 +175,7 @@ class VideoInfoViewModel(
             // 同个视频不替换播放
             return@launch
         }
-        val openMode = SettingPreferences.mapData(fragment.requireActivity()) {
+        val openMode = SettingPreferences.mapData(Bilimiao.app) {
             it[PlayerOpenMode] ?: SettingConstants.PLAYER_OPEN_MODE_DEFAULT
         }
         if (scaffoldApp.showPlayer) {

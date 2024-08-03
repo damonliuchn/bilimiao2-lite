@@ -51,7 +51,7 @@ android {
 protobuf {
     val pbandkVersion = Versions.pbandk
     protoc {
-        artifact = "com.google.protobuf:protoc:3.12.0"  // 相当于proto编译器
+        artifact = "com.google.protobuf:protoc:3.20.0"  // 相当于proto编译器
     }
     plugins {
         id("pbandk") {

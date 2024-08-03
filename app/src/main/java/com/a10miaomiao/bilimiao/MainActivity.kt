@@ -186,6 +186,7 @@ class MainActivity
         })
 
         initViewFocusable()
+        Bilimiao.mainActivity = this
     }
 
     private fun initNavController() {

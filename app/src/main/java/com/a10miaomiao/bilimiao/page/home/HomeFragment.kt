@@ -14,6 +14,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import cn.a10miaomiao.bilimiao.compose.pages.auth.LoginPage
 import cn.a10miaomiao.bilimiao.compose.pages.time.TimeSettingPage
+import cn.a10miaomiao.bilimiao.compose.pages.user.UserFavouritePage
 import cn.a10miaomiao.miao.binding.android.view.*
 import cn.a10miaomiao.miao.binding.android.widget._text
 import cn.a10miaomiao.miao.binding.miaoEffect
@@ -30,6 +31,7 @@ import com.a10miaomiao.bilimiao.config.ViewStyle
 import com.a10miaomiao.bilimiao.config.config
 import com.a10miaomiao.bilimiao.page.region.RegionFragment
 import com.a10miaomiao.bilimiao.page.user.UserFragment
+import com.a10miaomiao.bilimiao.page.user.favourite.UserFavouriteListFragment
 import com.a10miaomiao.bilimiao.store.WindowStore
 import com.a10miaomiao.bilimiao.widget.wrapInLimitedFrameLayout
 import com.bumptech.glide.Glide
@@ -47,6 +49,7 @@ import splitties.views.dsl.recyclerview.recyclerView
 class HomeFragment : Fragment(), DIAware {
 
     companion object {
+        var SHOWED_FAVORITE = false
         fun newFragmentInstance(): HomeFragment {
             val fragment = HomeFragment()
             val bundle = Bundle()
@@ -72,6 +75,17 @@ class HomeFragment : Fragment(), DIAware {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.randomTitle()
+        val userInfo = viewModel.userStore.state.info
+        if (!SHOWED_FAVORITE && userInfo != null) {
+            val nav = requireActivity().findNavController(R.id.nav_host_fragment)
+            val args =
+                UserFavouriteListFragment.createArguments(userInfo.mid.toString(), userInfo.name)
+            nav
+                .navigateToCompose(UserFavouritePage()) {
+                    id set userInfo.mid.toString()
+                }
+            SHOWED_FAVORITE = true
+        }
     }
 
     val handleHeaderClick = View.OnClickListener{
@@ -372,10 +386,10 @@ class HomeFragment : Fragment(), DIAware {
                     width = matchParent
                     bottomMargin = config.dividerSize
                 }
-                +timeView()..lParams {
-                    width = matchParent
-                    bottomMargin = config.dividerSize
-                }
+//                +timeView()..lParams {
+//                    width = matchParent
+//                    bottomMargin = config.dividerSize
+//                }
 
 //                +button {
 //                    text = "测试"

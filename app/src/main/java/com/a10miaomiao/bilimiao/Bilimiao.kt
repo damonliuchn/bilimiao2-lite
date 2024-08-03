@@ -14,6 +14,7 @@ class Bilimiao: Application() {
         const val APP_NAME = "bilimiao"
         lateinit var app: Bilimiao
         lateinit var commApp: BilimiaoCommApp
+        lateinit var mainActivity: MainActivity
     }
 
     init {
