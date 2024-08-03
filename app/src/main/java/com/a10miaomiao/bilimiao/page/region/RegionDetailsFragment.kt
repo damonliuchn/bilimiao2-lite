@@ -4,16 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.coroutineScope
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.a10miaomiao.bilimiao.MainNavGraph
-import com.a10miaomiao.bilimiao.comm.entity.region.RegionTypeDetailsInfo
 import com.a10miaomiao.bilimiao.config.config
 import com.a10miaomiao.bilimiao.comm.*
+import com.a10miaomiao.bilimiao.comm.entity.region.RegionVideoInfo
 import com.a10miaomiao.bilimiao.comm.recycler.*
 import com.a10miaomiao.bilimiao.commponents.loading.ListState
 import com.a10miaomiao.bilimiao.commponents.loading.listStateView
@@ -95,7 +92,7 @@ class RegionDetailsFragment : RecyclerViewFragment(), DIAware {
             .navigate(VideoInfoFragment.actionId, args)
     }
 
-    val itemUi = miaoBindingItemUi<RegionTypeDetailsInfo> { item, index ->
+    val itemUi = miaoBindingItemUi<RegionVideoInfo> { item, index ->
         videoItem (
             title = item.title,
             pic = item.pic,
